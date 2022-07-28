@@ -8,7 +8,7 @@ beforeEach(async () => {
 });
 
 const body = {
-    name: faker.name,
+    name: `${faker.name}`,
     youtubeLink: `https://www.youtube.com/${faker.name}`
 }
 
