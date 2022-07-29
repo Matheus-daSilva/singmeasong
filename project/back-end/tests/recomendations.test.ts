@@ -31,10 +31,17 @@ describe("POST /recomendations", () => {
 
 describe("POST /recommendations/:id/upvote", () => {
     
-    it("trying to add a vote to the video", async () => {
+    it("trying to add a like to the video", async () => {
         await supertest(app).post("/recommendations").send(body)
         const respo = await getPostIdFactory(body.name)
         const respo2 = await supertest(app).post(`/recommendations/${respo.id}/upvote`).send()
+        expect(respo2.statusCode).toBe(200)
+    })
+
+    it("trying to add a dislike to the video", async () => {
+        await supertest(app).post("/recommendations").send(body)
+        const respo = await getPostIdFactory(body.name)
+        const respo2 = await supertest(app).post(`/recommendations/${respo.id}/downvote`).send()
         expect(respo2.statusCode).toBe(200)
     })
 })
