@@ -4,7 +4,7 @@ import { recommendationRepository } from "../../src/repositories/recommendationR
 import recommendationFactory from "../factory/recommendationFactory.js";
 
 describe("recommendationService", () => {
-    it("Create recommendation", async () => {
+    it("trying to crate a new recommendation", async () => {
         const recommendation = recommendationFactory.exampleRecommendation();
         jest.spyOn(
             recommendationRepository,
@@ -17,7 +17,7 @@ describe("recommendationService", () => {
         expect(recommendationRepository.create).toHaveBeenCalled();
     });
 
-    it("Try create with exist name", async () => {
+    it("trying to create an existing name", async () => {
         const recommendation = recommendationFactory.exampleRecommendation();
         jest.spyOn(
             recommendationRepository,
@@ -61,7 +61,7 @@ describe("recommendationService", () => {
         expect(recommendationRepository.updateScore).toHaveBeenCalled();
     });
 
-    it("Upvote non-exist recommendation", async () => {
+    it("trying to upVote a recommendation that do not exist", async () => {
         jest.spyOn(recommendationRepository, "find").mockImplementationOnce(
             (): any => {
                 return null;
@@ -71,7 +71,7 @@ describe("recommendationService", () => {
         expect(tryUp).rejects.toEqual({ type: "not_found", message: "" });
     });
 
-    it("Downvote recommendation", async () => {
+    it("trying to downvote a recommendation", async () => {
         const recommendation = {
             id: 1,
             ...recommendationFactory.exampleRecommendation(),
@@ -97,7 +97,7 @@ describe("recommendationService", () => {
         expect(recommendationRepository.updateScore).toHaveBeenCalled();
     });
 
-    it("Downvote recommendation with score = -5", async () => {
+    it("downvote until score -5", async () => {
         const recommendation = {
             id: 1,
             ...recommendationFactory.exampleRecommendation(),
@@ -127,7 +127,7 @@ describe("recommendationService", () => {
         expect(recommendationRepository.remove).toHaveBeenCalled();
     });
 
-    it("Downvote non-exist recommendation", async () => {
+    it("trying to downVote a recommendation that do not exist", async () => {
         jest.spyOn(recommendationRepository, "find").mockImplementationOnce(
             (): any => {
                 return null;
@@ -137,7 +137,7 @@ describe("recommendationService", () => {
         expect(tryDown).rejects.toEqual({ type: "not_found", message: "" });
     });
 
-    it("Get by ID", async () => {
+    it("trying to get a recommendation by id", async () => {
         const recommendation = {
             id: 1,
             ...recommendationFactory.exampleRecommendation(),
@@ -156,7 +156,7 @@ describe("recommendationService", () => {
         expect(seachRecommendation.name).toEqual(recommendation.name);
     });
 
-    it("Get all recommendations", async () => {
+    it("trying to get all recommendations", async () => {
         const recommendations = [];
         const size = 5;
         for (let i = 0; i < size; i++) {
@@ -176,7 +176,7 @@ describe("recommendationService", () => {
         expect(seachAllRecommendations).toHaveLength(size);
     });
 
-    it("Get top recommendations", async () => {
+    it("trying to get recommendations ranked", async () => {
         jest.spyOn(
             recommendationRepository,
             "getAmountByScore"
@@ -185,7 +185,7 @@ describe("recommendationService", () => {
         expect(recommendationRepository.getAmountByScore).toHaveBeenCalled();
     });
 
-    it("Get random recommendation with score > 10", async () => {
+    it("trying to get randomly recommendations with score > 10 ", async () => {
         const recommendations = [];
         const recommendation = {
             ...recommendationFactory.exampleRecommendation(),
@@ -205,7 +205,7 @@ describe("recommendationService", () => {
         expect(randomRecommendation).toEqual(recommendation);
     });
 
-    it("Get random recommendation with score between -5 and 10", async () => {
+    it("trying to get randomly recommendations with score between -5 to 10", async () => {
         const recommendations = [];
         const recommendation = {
             ...recommendationFactory.exampleRecommendation(),
@@ -225,7 +225,7 @@ describe("recommendationService", () => {
         expect(randomRecommendation).toEqual(recommendation);
     });
 
-    it("Get random recommendation with no filter", async () => {
+    it("getting randomly recommendations with no filter", async () => {
         const recommendations = [];
         const recommendation = {
             ...recommendationFactory.exampleRecommendation(),
@@ -250,7 +250,7 @@ describe("recommendationService", () => {
         expect(randomRecommendation).toEqual(recommendation);
     });
 
-    it("Not get a random recommendation", async () => {
+    it("get a non randomly recommendation list", async () => {
         const random = 0.8;
         jest.spyOn(global.Math, "random").mockReturnValue(random);
         jest.spyOn(recommendationRepository, "findAll").mockImplementationOnce(
