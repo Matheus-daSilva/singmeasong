@@ -7,7 +7,7 @@ describe("user behavior", () => {
 
         const body = {
             name: faker.name.findName(),
-            youtubeLink: "https://www.youtube.com/watch?v=CBF25QcaC_g&list=RDCBF25QcaC_g&start_radio=1"
+            youtubeLink: "https://www.youtube.com/watch?v=rywUS-ohqeE&list=RDCBF25QcaC_g&index=14"
         }
 
         cy.visit("http://localhost:3000/")
@@ -16,6 +16,22 @@ describe("user behavior", () => {
 
         cy.get("#button").click()
 
+    })
+
+    it("user should set a upVote", async () => {
+
+        cy.visit("http://localhost:3000/")
+        
+        cy.get("#arrowUp").click()
+    })
+
+    it("a recommendation should be deleted with a score -5", async () => {
+
+        cy.visit("http://localhost:3000/")
+
+        for (let i = 1; i < 6; i++) {
+            cy.get("#arrowDown").click()
+        }
     })
 
     it("user should see top recommendations", async () => {
