@@ -25,4 +25,12 @@ describe("user behavior", () => {
 
         cy.url().should("equal", "http://localhost:3000/top")
     })
+
+    it("user should be able to see random recommendations", async () => {
+
+        cy.visit("http://localhost:3000/")
+        cy.get("#random").click()
+
+        cy.url().should("equal", "http://localhost:3000/random")
+    })
 })
