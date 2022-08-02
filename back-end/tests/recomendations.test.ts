@@ -134,7 +134,6 @@ describe("GET /recommendations/random", () => {
     })
 })
 
-
 afterAll(async () => {
     await prisma.$disconnect();
 });
